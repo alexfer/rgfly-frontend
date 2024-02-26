@@ -59,6 +59,7 @@ export default class LoginForm extends React.Component {
                             error: true,
                             message: error
                         });
+                        form.reset();
                         return Promise.reject(error);
                     }
 
