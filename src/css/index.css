@@ -1,0 +1,133 @@
+@import "https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap";
+
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #7d879c;
+    --gray-dark: #373f50;
+    --primary: #fe696a;
+    --secondary: #f3f5f9;
+    --success: #42d697;
+    --info: #69b3fe;
+    --warning: #fea569;
+    --danger: #f34770;
+    --light: #fff;
+    --dark: #373f50;
+    --accent: #4e54c8;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1280px;
+    --font-family-sans-serif: "Rubik", sans-serif;
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+::placeholder {
+    /*color: rgba(157, 167, 204, 0.8) !important;*/
+    color: rgba(91, 91, 140, 0.42) !important;
+    opacity: 1;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box
+}
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+}
+
+body {
+    margin: 0;
+    font-family: "Rubik", sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #4b566b;
+    text-align: left;
+    background-color: #fff;
+}
+
+a {
+    color: #193279;
+    text-decoration: none;
+    background-color: transparent
+}
+
+a:hover {
+    color: #dc3545;
+    text-decoration: none
+}
+
+a:not([href]) {
+    color: inherit;
+    text-decoration: none
+}
+
+a:not([href]):hover {
+    color: inherit;
+    text-decoration: none
+}
+
+.form-control,
+.form-select {
+    border: 1px rgba(55, 63, 80, 0.75) dot-dash;
+    border-radius: 0.15rem;
+    box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border: 1px rgba(55, 63, 80, 0.85) dot-dash;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+}
+
+.dropdown-toggle:after {
+    content: none;
+}
+
+.text-danger ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.accordion .accordion-item .accordion-button:focus {
+    box-shadow: none;
+}
+
+.superNav {
+    font-size: 12px;
+}
+
+.form-control {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+@media screen and (max-width: 860px) {
+    .centerOnMobile {
+        text-align: right;
+    }
+
+    body {
+        background-color: #dc3545;
+    }
+}
+
+.toast {
+    display: none;
+}
