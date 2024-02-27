@@ -1,6 +1,6 @@
 import React from "react";
 import {Alert, Button, Container, Form, FormControl} from 'react-bootstrap-v5';
-//import {AES} from 'crypto-js';
+import {AES, enc} from 'crypto-js';
 
 export default class LoginForm extends React.Component {
     constructor(props) {
@@ -63,6 +63,10 @@ export default class LoginForm extends React.Component {
                         return Promise.reject(error);
                     }
 
+                    const token = AES.encrypt(data.token, REACT_APP_AUTH_SECRET);
+
+                    localStorage.setItem('token', token.toString(enc.utf8));
+
                     form.reset();
                     this.setState({
                         validated: false,
@@ -70,14 +74,11 @@ export default class LoginForm extends React.Component {
                         message: null
                     });
 
-                    console.log(REACT_APP_AUTH_SECRET);
-
                     setTimeout(() => {
                         document.getElementById('dropdown').click();
                     }, 700);
                 })
-                .catch(err => {
-                    //console.log(process.env);
+                .catch(err => {                    
                     console.log(err);
                 });
         }
