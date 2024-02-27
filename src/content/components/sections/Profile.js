@@ -1,7 +1,8 @@
 import React from 'react';
-import {AES, enc} from 'crypto-js';
-import {jwtDecode} from 'jwt-decode';
-import {Card, Col, Row} from "react-bootstrap-v5";
+import { AES, enc } from 'crypto-js';
+import { jwtDecode } from 'jwt-decode';
+import { Card, Col, Row } from "react-bootstrap-v5";
+import UserProfile from '../requests/UserProfile';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -41,7 +42,8 @@ export default class Profile extends React.Component {
     }
 
     details() {
-
+        const req = <UserProfile id={47} />;
+        console.log(req);
     }
 
     render() {
@@ -53,6 +55,7 @@ export default class Profile extends React.Component {
                         <Row>
                             <Col xs={12}>
                                 {this.title()}
+                                <div><UserProfile id={47} /></div>
                             </Col>
                         </Row>
                     </Card>

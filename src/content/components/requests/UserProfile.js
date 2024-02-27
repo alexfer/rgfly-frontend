@@ -19,10 +19,10 @@ const requestOptions = {
     },
 };
 
-const Profile = (props) => {
+export default function UserProfile (props) {
 
     const id = props.id;
-    const url = 'https://dev.moniheal.com/api/profile/' + id;
+    const url = 'https://dev.moniheal.com/api/user/' + id;
     const [data, setData] = useState([]);
 
     fetch(url, requestOptions)
@@ -34,7 +34,5 @@ const Profile = (props) => {
         .catch(err => {
             console.log(err);
         });
-    return data;
+    return (data);
 }
-
-export default Profile;
