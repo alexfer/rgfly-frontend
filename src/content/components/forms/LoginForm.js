@@ -1,6 +1,6 @@
 import React from "react";
 import {Alert, Button, Container, Form, FormControl} from 'react-bootstrap-v5';
-import {AES, enc} from 'crypto-js';
+import {AES} from 'crypto-js';
 
 export default class LoginForm extends React.Component {
     constructor(props) {
@@ -44,8 +44,8 @@ export default class LoginForm extends React.Component {
             body: JSON.stringify(inputs)
         };
 
-        const { REACT_APP_AUTH_SECRET } = process.env;
-        
+        const {REACT_APP_AUTH_SECRET} = process.env;
+
         if (form.checkValidity() === true) {
 
             fetch(this.url, requestOptions)
@@ -63,9 +63,9 @@ export default class LoginForm extends React.Component {
                         return Promise.reject(error);
                     }
 
-                    const token = AES.encrypt(data.token, REACT_APP_AUTH_SECRET);
+                    const token = AES.encrypt(data.token, REACT_APP_AUTH_SECRET.toString());
 
-                    localStorage.setItem('token', token.toString(enc.utf8));
+                    localStorage.setItem('token', token);
 
                     form.reset();
                     this.setState({
@@ -76,9 +76,10 @@ export default class LoginForm extends React.Component {
 
                     setTimeout(() => {
                         document.getElementById('dropdown').click();
+                        document.location.reload();
                     }, 700);
                 })
-                .catch(err => {                    
+                .catch(err => {
                     console.log(err);
                 });
         }
@@ -88,7 +89,9 @@ export default class LoginForm extends React.Component {
     render() {
         return (
             <Container>
-                {this.state.error ? <Alert className={`m-2 bg-opacity-50`} variant={`danger`}>{this.state.message}</Alert>: null}
+                {this.state.error ?
+                    <Alert className={`m-2 bg-opacity-50`} variant={`danger`}>{this.state.message}</Alert> :
+                    null}
                 <Form method="post" noValidate validated={this.state.validated} onSubmit={this.authorize}
                       className="m-3">
                     <Form.Group className="mb-3" controlId={`username`}>
