@@ -6,3 +6,4 @@ export {default as Services} from './Services';
 export {default as Contact} from './Contact';
 export {default as Account} from './Account';
 export {default as Navs} from './../navs/Navs';
+export {default as Profile} from './Profile';
