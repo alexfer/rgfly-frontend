@@ -13,8 +13,9 @@ const App = () => (
                 <Button
                     data-bs-toggle="collapse"
                     className="navbar-toggler"
-                    data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false"
+                    data-bs-target="#navbar"
+                    aria-controls="navbar" 
+                    aria-expanded="false"
                     aria-label="..."
                     type="button">
                     <span className="navbar-toggler-icon"></span>
