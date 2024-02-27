@@ -44,8 +44,8 @@ export default class LoginForm extends React.Component {
             body: JSON.stringify(inputs)
         };
 
-        const { AUTH_SECRET } = process.env;
-
+        const { REACT_APP_AUTH_SECRET } = process.env;
+        
         if (form.checkValidity() === true) {
 
             fetch(this.url, requestOptions)
@@ -70,7 +70,7 @@ export default class LoginForm extends React.Component {
                         message: null
                     });
 
-                    console.log(AUTH_SECRET);
+                    console.log(REACT_APP_AUTH_SECRET);
 
                     setTimeout(() => {
                         document.getElementById('dropdown').click();

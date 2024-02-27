@@ -27,7 +27,7 @@ export default class Navs extends React.Component {
                             <Link className="nav-link mx-2 text-uppercase" to={key}>{navs[key]}</Link>
                         </NavItem>
                     ))}
-                    <Account onClik={console.log(this.props)} />
+                    <Account />
                 </Nav>
             </div>
         );
