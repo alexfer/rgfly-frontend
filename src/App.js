@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 import {Button, Container, Navbar} from 'react-bootstrap-v5';
-import {About, Contact, Features, Home, Navs, Profile, Questions, Services} from './content/components/sections';
+import {About, Contact, Features, Home, Navs, Profile, Questions, Services} from './content/components/pages';
 import ToastMessage from "./content/components/toast/ToastMessage";
 import React from "react";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {Nav, NavItem} from 'react-bootstrap-v5';
-import {Account} from "../sections";
+import {Account} from "../pages";
 
 export default class Navs extends React.Component {
     constructor() {

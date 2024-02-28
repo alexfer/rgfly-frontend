@@ -13,7 +13,7 @@ export default class LoginForm extends React.Component {
         };
     }
 
-    url = 'https://dev.moniheal.com/api/login_check';
+    url = process.env.REACT_APP_API_HOST + '/api/login_check';
 
     handleChange = (e) => {
         const {name, value} = e.target;
@@ -77,7 +77,7 @@ export default class LoginForm extends React.Component {
                     setTimeout(() => {
                         document.getElementById('dropdown').click();
                         document.location.reload();
-                    }, 700);
+                    }, 300);
                 })
                 .catch(err => {
                     console.log(err);
