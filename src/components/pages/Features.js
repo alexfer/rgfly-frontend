@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Image, ListGroup, Row, Spinner} from 'react-bootstrap-v5';
+import {Link} from "react-router-dom";
 
 export default function Features() {
 
@@ -9,7 +10,7 @@ export default function Features() {
     const [isLoading, setIsLoading] = useState(true);
 
     function Loading() {
-        return <Spinner className="position-absolute start-50 top-50" animation="grow" />;
+        return <Spinner className="position-absolute start-50 top-50" animation="grow"/>;
     }
 
     useEffect(() => {
@@ -28,11 +29,15 @@ export default function Features() {
         setIsStart(false);
         setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 1000);
     }, [isStart]);
 
     if (isLoading) {
-        return <Loading />;
+        return <Loading/>;
+    }
+
+    function handleClick(item) {
+        alert(item.first_name + ' ' + item.last_name);
     }
 
     return (
@@ -46,20 +51,21 @@ export default function Features() {
                                 <ListGroup as="ul" variant='flush'>
                                     {data?.map((item, index) => {
                                         const choice = () => {
-                                            console.log(item.first_name + ' ' + item.last_name);
+                                            handleClick(item)
                                         };
                                         return (
-                                            <ListGroup.Item as="li" onClick={choice} action key={index}>
-                                                <div className="d-flex w-100">
+                                            <ListGroup.Item as="li" action key={index}>
+                                                <div className="d-flex mt-2 w-100">
                                                     <div className="ms-2 me-xxl-5 text-center text-truncate">
                                                         <Image
                                                             className="rounded-circle"
                                                             src={item.avatar}
                                                             alt={`${item.first_name} ${item.last_name}`} width={42}/>
                                                     </div>
-                                                    <div
-                                                        className="mx-2 text-start">{item.first_name} {item.last_name}</div>
-                                                    <div className="ms-auto mx-2">{item.email}</div>
+                                                    <Link onClick={choice} className="mt-2 text-start">
+                                                        {item.first_name} {item.last_name}
+                                                    </Link>
+                                                    <div className="ms-auto mt-2">{item.email}</div>
                                                 </div>
                                             </ListGroup.Item>
                                         )
