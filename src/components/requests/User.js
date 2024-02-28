@@ -1,5 +1,7 @@
 import getToken from '../utils/token'
 
+const url = process.env.REACT_APP_API_HOST + '/uk/current-user';
+
 const requestOptions = {
     method: 'GET',
     headers: {
@@ -9,8 +11,6 @@ const requestOptions = {
 };
 
 const getProfile = async () => {
-    const url = process.env.REACT_APP_API_HOST + '/uk/current-user';
-
     try {
         const response = await fetch(url, requestOptions);
         const data = await response.json();
@@ -22,3 +22,4 @@ const getProfile = async () => {
 }
 
 export default await getProfile;
+
