@@ -13,7 +13,11 @@ export default class LoginForm extends React.Component {
         };
     }
 
+<<<<<<< HEAD:src/content/components/forms/LoginForm.js
     url = process.env.REACT_APP_API_HOST + '/login_check';
+=======
+    url = process.env.REACT_APP_API_HOST + '/api/login_check';
+>>>>>>> a45f149f5ff763400ec97a98f6f8704ef8f2114b:src/components/forms/LoginForm.js
 
     handleChange = (e) => {
         const { name, value } = e.target;
@@ -77,7 +81,7 @@ export default class LoginForm extends React.Component {
                     setTimeout(() => {
                         document.getElementById('dropdown').click();
                         document.location.reload();
-                    }, 700);
+                    }, 300);
                 })
                 .catch(err => {
                     console.log(err);
