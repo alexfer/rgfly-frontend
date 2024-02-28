@@ -1,6 +1,6 @@
 import React from "react";
-import {Alert, Button, Container, Form, FormControl} from 'react-bootstrap-v5';
-import {AES} from 'crypto-js';
+import { Alert, Button, Container, Form, FormControl } from 'react-bootstrap-v5';
+import { AES } from 'crypto-js';
 
 export default class LoginForm extends React.Component {
     constructor(props) {
@@ -13,11 +13,11 @@ export default class LoginForm extends React.Component {
         };
     }
 
-    url = 'https://dev.moniheal.com/api/login_check';
+    url = process.env.REACT_APP_API_HOST + '/login_check';
 
     handleChange = (e) => {
-        const {name, value} = e.target;
-        this.setState(values => ({...values, [name]: value}));
+        const { name, value } = e.target;
+        this.setState(values => ({ ...values, [name]: value }));
     };
 
     authorize = (event) => {
@@ -40,11 +40,11 @@ export default class LoginForm extends React.Component {
 
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs)
         };
 
-        const {REACT_APP_AUTH_SECRET} = process.env;
+        const { REACT_APP_AUTH_SECRET } = process.env;
 
         if (form.checkValidity() === true) {
 
@@ -93,11 +93,11 @@ export default class LoginForm extends React.Component {
                     <Alert className={`m-2 bg-opacity-50`} variant={`danger`}>{this.state.message}</Alert> :
                     null}
                 <Form method="post" noValidate validated={this.state.validated} onSubmit={this.authorize}
-                      className="m-3">
+                    className="m-3">
                     <Form.Group className="mb-3" controlId={`username`}>
                         <Form.Label>User name</Form.Label>
                         <Form.Control type="phone" name="username" onChange={this.handleChange} required
-                                      placeholder="Username"/>
+                            placeholder="Username" />
                         <FormControl.Feedback type="invalid">
                             Email address is required.
                         </FormControl.Feedback>
@@ -105,7 +105,7 @@ export default class LoginForm extends React.Component {
                     <Form.Group className="mb-3" controlId={`password`}>
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" onChange={this.handleChange} required
-                                      placeholder="Password"/>
+                            placeholder="Password" />
                         <FormControl.Feedback type="invalid">
                             Password is required.
                         </FormControl.Feedback>

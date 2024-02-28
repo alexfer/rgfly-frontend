@@ -22,7 +22,7 @@ const requestOptions = {
 export default function UserProfile (props) {
 
     const id = props.id;
-    const url = 'https://dev.moniheal.com/api/user/' + id;
+    const url = process.env.REACT_API_HOST + '/user/' + id;
     const [data, setData] = useState([]);
 
     fetch(url, requestOptions)
