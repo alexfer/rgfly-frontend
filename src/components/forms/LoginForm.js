@@ -13,12 +13,6 @@ export default class LoginForm extends React.Component {
         };
     }
 
-<<<<<<< HEAD:src/content/components/forms/LoginForm.js
-    url = process.env.REACT_APP_API_HOST + '/login_check';
-=======
-    url = process.env.REACT_APP_API_HOST + '/api/login_check';
->>>>>>> a45f149f5ff763400ec97a98f6f8704ef8f2114b:src/components/forms/LoginForm.js
-
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState(values => ({ ...values, [name]: value }));
@@ -26,6 +20,8 @@ export default class LoginForm extends React.Component {
 
     authorize = (event) => {
 
+        console.log(process.env)
+        const url = process.env.REACT_APP_API_HOST + '/api/login_check';
         const form = event.currentTarget;
 
         if (form.checkValidity() === false) {
@@ -52,7 +48,7 @@ export default class LoginForm extends React.Component {
 
         if (form.checkValidity() === true) {
 
-            fetch(this.url, requestOptions)
+            fetch(url, requestOptions)
                 .then(async response => {
                     const isJson = response.headers.get('content-type')?.includes('application/json') || undefined;
                     const data = isJson && await response.json();
