@@ -7,7 +7,6 @@ export default function Features() {
     const [isStart, setIsStart] = useState(false);
     const url = 'https://reqres.in/api/users';
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     function Loading() {
         return <Spinner className="position-absolute start-50 top-50" animation="grow"/>;
@@ -20,21 +19,14 @@ export default function Features() {
                 .then(async (response) => {
                     const isJson = response.headers.get('content-type')?.includes('application/json');
                     const data = isJson && await response.json();
-                    setData(data.data)
+                    setData(data.data);
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
         setIsStart(false);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
     }, [isStart]);
-
-    if (isLoading) {
-        return <Loading/>;
-    }
 
     function handleClick(item) {
         alert(item.first_name + ' ' + item.last_name);
@@ -80,5 +72,4 @@ export default function Features() {
             </section>
         </>
     );
-
 }
