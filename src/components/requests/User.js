@@ -22,4 +22,3 @@ const getProfile = async () => {
 }
 
 export default await getProfile;
-
