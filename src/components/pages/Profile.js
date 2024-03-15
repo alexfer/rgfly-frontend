@@ -1,49 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Col, ListGroup, Row} from "react-bootstrap-v5";
 import getProfile from "../requests/User";
 
-export default class Profile extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {data: {}, values: props.values};
-    }
+export default function Profile(params) {
 
-    componentDidMount() {
-        this.renderProfile();
-    }
+    document.title = params.title;
 
-    renderProfile = async () => {
-        try {
-            const data = await getProfile();
-            this.setState({
-                data: data
-            });
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    const [data, setData] = useState([]);
 
-    render() {
-        console.log(this.state.data);
-        return (
-            <>
-                <section className="container mt-lg-2">
-                    <Row>
-                        <Card className='card-body shadow col-12'>
-                            <h4 className="ps-2 border-start border-3 border-danger mb-3">Profile</h4>
-                            <Row>
-                                <Col xs={12}>
-                                    <ListGroup as="ul" variant='flush'>
-                                        <ListGroup.Item as="li">{this.state.data.fullName}</ListGroup.Item>
-                                        <ListGroup.Item as="li">{this.state.data.email}</ListGroup.Item>
-                                        <ListGroup.Item as="li">{this.state.data.phone}</ListGroup.Item>
-                                    </ListGroup>
-                                </Col>
-                            </Row>
-                        </Card>
-                    </Row>
-                </section>
-            </>
-        )
-    }
+    useEffect(() => {
+        getProfile().then(data => {
+            setData(data);
+        });
+    }, []);
+
+    return (
+        <>
+            <section className="container mt-lg-2">
+                <Row>
+                    <Card className='card-body shadow col-12'>
+                        <h4 className="ps-2 border-start border-3 border-danger mb-3">{params.title}</h4>
+                        <Row>
+                            <Col xs={12}>
+                                <ListGroup as="ul" variant='flush'>
+                                    <ListGroup.Item as="li">{data.fullName}</ListGroup.Item>
+                                    <ListGroup.Item as="li">{data.email}</ListGroup.Item>
+                                    <ListGroup.Item as="li">{data.phone}</ListGroup.Item>
+                                </ListGroup>
+                            </Col>
+                        </Row>
+                    </Card>
+                </Row>
+            </section>
+        </>
+    )
 }

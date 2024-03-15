@@ -1,19 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Col, Image, ListGroup, Row, Spinner} from 'react-bootstrap-v5';
+import {Button, Card, Col, Image, ListGroup, Row} from 'react-bootstrap-v5';
 import {Link} from "react-router-dom";
 
-export default function Features() {
+export default function Features(params) {
+    document.title = params.title;
 
     const [isStart, setIsStart] = useState(false);
     const url = 'https://reqres.in/api/users';
     const [data, setData] = useState([]);
 
-    function Loading() {
-        return <Spinner className="position-absolute start-50 top-50" animation="grow"/>;
-    }
-
     useEffect(() => {
-        document.title = 'RgFly - Features';
         if (isStart) {
             fetch(url)
                 .then(async (response) => {
@@ -37,7 +33,7 @@ export default function Features() {
             <section className="container mt-lg-2">
                 <Row>
                     <Card className="card-body shadow col-12">
-                        <h4 className="ps-2 border-start border-3 border-danger mb-3">Features</h4>
+                        <h4 className="ps-2 border-start border-3 border-danger mb-3">{params.title}</h4>
                         <Row>
                             <Col xs={12}>
                                 <ListGroup as="ul" variant='flush'>
@@ -72,4 +68,5 @@ export default function Features() {
             </section>
         </>
     );
+
 }

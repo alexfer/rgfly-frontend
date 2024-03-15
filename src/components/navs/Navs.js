@@ -1,69 +1,70 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Nav, NavItem} from 'react-bootstrap-v5';
 import {Account} from "../pages";
+import navs from './list';
 
-export default class Navs extends React.Component {
-    constructor() {
-        super();
-        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
-    };
+export default function Navs() {
 
-    forceUpdateHandler() {
-        this.forceUpdate();
-    };
+    const [showAccount, setShowAccount] = useState(false);
+    const [showLogout, setShowLogout] = useState(false);
 
-    navs = {
-        '/services': 'Services',
-        '/questions': 'Questions',
-        '/features': 'Features',
-        '/contact': 'Contact',
-        '/about': 'About',
-        '/profile': 'Profile'
-    };
-
-    getToken = () => {
+    /**
+     *
+     * @returns {boolean}
+     */
+    const getToken = () => {
         return localStorage.getItem('token') === null;
     };
 
-    getNavs = () => {
-        let navs = Object.keys(this.navs);
-        if (this.getToken()) {
-            return navs.splice(0, 5);
+    /**
+     *
+     * @param {number} offset
+     * @returns {string[]}
+     */
+    const getNavs = (offset) => {
+        if (!getToken()) {
+            return Object.keys(navs);
         }
-        return navs;
+        return Object.keys(navs).slice(0, offset);
     };
 
-    account = (key) => {
-        if (this.getToken()) {
-            return (
-                <Account/>
-            );
+    useEffect(() => {
+        if (getToken()) {
+            setShowAccount(true);
+            setShowLogout(false);
         }
-        return (
-            <NavItem as="li" key={key}>
-                <Link className="nav-link mx-2 text-uppercase" onClick={this.logout}>Logout</Link>
-            </NavItem>
-        );
-    };
+    }, [showAccount, showLogout]);
 
-    logout = () => {
+
+    const logout = (event) => {
+        alert(event.currentTarget)
+        let owner = event.currentTarget.parentNode;
+        let profile = owner.previousElementSibling;
+        profile.style.display = 'none';
+        owner.style.display = 'none';
+        setShowAccount(true);
+        setShowLogout(false);
         localStorage.clear();
-        this.forceUpdateHandler();
     }
 
-    render() {
-        return (
+    return (
+        <>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <Nav as="ul" className="me-auto mt-2">
-                    {this.getNavs().map(key => (
+                    {getNavs(5).map(key => (
                         <NavItem as="li" key={key}>
-                            <Link className="nav-link mx-2 text-uppercase" to={key}>{this.navs[key]}</Link>
+                            <Link className="nav-link mx-2 text-uppercase" to={key}>{navs[key]}</Link>
                         </NavItem>
                     ))}
-                    {this.account()}
+                    {showAccount ? <Account/> : null}
+                    {showLogout ?
+                        <NavItem as="li">
+                            <Link className="nav-link mx-2 text-uppercase" onClick={logout}>Logout</Link>
+                        </NavItem>
+                        : null}
                 </Nav>
             </div>
-        );
-    }
+        </>
+    );
 }

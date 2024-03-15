@@ -1,27 +1,23 @@
-import React from "react";
-import { Alert, Button, Container, Form, FormControl } from 'react-bootstrap-v5';
-import { AES } from 'crypto-js';
+import React, {useState} from "react";
+import {Alert, Button, Container, Form, FormControl} from 'react-bootstrap-v5';
+import {AES} from 'crypto-js';
 
-export default class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputs: {},
-            validated: false,
-            error: false,
-            message: null
-        };
-    }
+export default function LoginForm({updateNav}) {
 
-    handleChange = (e) => {
-        const { name, value } = e.target;
-        this.setState(values => ({ ...values, [name]: value }));
+    const [inputs, setInputs] = useState({});
+    const [validate, setValidated] = useState(false);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState(null);
+
+    const url = process.env.REACT_APP_API_HOST + '/api/login_check';
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setInputs(values => ({...values, [name]: value}));
     };
 
-    authorize = (event) => {
+    const authorize = (event) => {
 
-        console.log(process.env)
-        const url = process.env.REACT_APP_API_HOST + '/api/login_check';
         const form = event.currentTarget;
 
         if (form.checkValidity() === false) {
@@ -29,22 +25,20 @@ export default class LoginForm extends React.Component {
             event.stopPropagation();
         }
 
-        this.setState({
-            validated: true
-        });
+        setValidated(true);
 
-        const inputs = {
-            username: this.state.username,
-            password: this.state.password
+        const inputsObj = {
+            username: inputs.username,
+            password: inputs.password
         };
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(inputs)
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(inputsObj)
         };
 
-        const { REACT_APP_AUTH_SECRET } = process.env;
+        const {REACT_APP_AUTH_SECRET} = process.env;
 
         if (form.checkValidity() === true) {
 
@@ -55,10 +49,8 @@ export default class LoginForm extends React.Component {
 
                     if (!response.ok) {
                         const error = (data && data.message) || response.status;
-                        this.setState({
-                            error: true,
-                            message: error
-                        });
+                        setError(true);
+                        setMessage(error);
                         form.reset();
                         return Promise.reject(error);
                     }
@@ -68,11 +60,9 @@ export default class LoginForm extends React.Component {
                     localStorage.setItem('token', token);
 
                     form.reset();
-                    this.setState({
-                        validated: false,
-                        error: false,
-                        message: null
-                    });
+                    setValidated(false);
+                    setError(false);
+                    setMessage(null);
 
                     setTimeout(() => {
                         document.getElementById('dropdown').click();
@@ -85,27 +75,26 @@ export default class LoginForm extends React.Component {
         }
         event.preventDefault();
     }
-
-    render() {
-        return (
+    return (
+        <>
             <Container>
-                {this.state.error ?
-                    <Alert className={`m-2 bg-opacity-50`} variant={`danger`}>{this.state.message}</Alert> :
+                {error ?
+                    <Alert className={`m-2 bg-opacity-50`} variant={`danger`}>{message}</Alert> :
                     null}
-                <Form method="post" noValidate validated={this.state.validated} onSubmit={this.authorize}
-                    className="m-3">
+                <Form method="post" noValidate validated={validate} onSubmit={authorize}
+                      className="m-3">
                     <Form.Group className="mb-3" controlId={`username`}>
                         <Form.Label>User name</Form.Label>
-                        <Form.Control type="phone" name="username" onChange={this.handleChange} required
-                            placeholder="Username" />
+                        <Form.Control type="phone" name="username" onChange={handleChange} required
+                                      placeholder="Username"/>
                         <FormControl.Feedback type="invalid">
                             Email address is required.
                         </FormControl.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId={`password`}>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" onChange={this.handleChange} required
-                            placeholder="Password" />
+                        <Form.Control type="password" name="password" onChange={handleChange} required
+                                      placeholder="Password"/>
                         <FormControl.Feedback type="invalid">
                             Password is required.
                         </FormControl.Feedback>
@@ -115,6 +104,6 @@ export default class LoginForm extends React.Component {
                     </Form.Group>
                 </Form>
             </Container>
-        )
-    }
+        </>
+    )
 }
